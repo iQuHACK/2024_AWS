@@ -49,7 +49,7 @@ In this case, the two qubit gate fidelity is highest on the qubit pair ‘0-7’
 
 For a standard approach to noise-aware compiling in gate-based Noisy Intermediate Scale Quantum (NISQ) devices, you can check out this paper by Murali et al.: https://arxiv.org/abs/1901.11054. For a reference implementation in Qiskit, check out the `NoiseAdaptiveLayout` [method](https://docs.quantum.ibm.com/api/qiskit/qiskit.transpiler.passes.NoiseAdaptiveLayout).
 
-**Hint**: you can access individual 1 and 2-qubit fidelities for the OQC Lucy and IonQ Harmony devices (recommended for this hackathon), as well as the IonQ Forte device (available through [Braket direct](https://docs.aws.amazon.com/braket/latest/developerguide/braket-direct.html)) as follows:
+**Hint**: you can access individual 1 and 2-qubit fidelities for the OQC Lucy and IonQ Harmony devices as follows:
 ```
 from braket.aws import AwsDevice
 
@@ -58,9 +58,6 @@ h_fidelities = harmony.properties.provider.fidelity
 
 lucy = AwsDevice("arn:aws:braket:eu-west-2::device/qpu/oqc/Lucy")
 l_fidelities = lucy.properties.provider.properties
-
-forte = AwsDevice("arn:aws:braket:us-east-1::device/qpu/ionq/Forte-1")
-f_fid = forte.properties.provider.fidelity
 ```
 You are also welcome to run a noisy simulation using the DM1 on-demand simulator (check out this [comprehensive example](https://github.com/amazon-braket/amazon-braket-examples/blob/main/examples/braket_features/Simulating_Noise_On_Amazon_Braket.ipynb) to see how) and apply noise-aware compiling to the simulated circuit. We would recommend referring to the Adding noise to a circuit section of the above example, so that you can properly assign noise rates to different simulated qubits, and therefore get an advantage using noise-aware compiling.
 
