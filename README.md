@@ -72,16 +72,15 @@ To access the devices such as the OQC Lucy device for the challenge, we will be 
 2. Once cloned, open terminal (first icon in the **Other** column in Launcher) and `cd` into this repo. Set the repo's remote origin using the git clone url you copied in Step 1, and then create a new branch for your team:
 ```bash
 cd  2024_AWS
-git remote set-url origin https://github.com/iQuHACK/2024_AWS
+git remote set-url origin <url>
 git branch <team_name>
 git checkout <team_name>
 ```
 3. Use the default environment which has the latest version of amazon_braket_sdk. 
 4. From the **FILES** tab in the left sidebar, double-click on the `2024_AWS` directory, if you are not there already.
-6. You are now ready to begin hacking! Work with your team to complete either of the challenges listed above.
+6. You are now ready to begin hacking and [submitting jobs](https://docs.qbraid.com/projects/lab/en/latest/lab/quantum_jobs.html)! Work with your team to complete either of the challenges listed above.
 
-For other questions or additional help using qBraid, see [Lab User Guide](https://qbraid-qbraid.readthedocs-hosted.com/en/latest/lab/overview.html), or reach out on [Discord](https://discord.gg/gwBebaBZZX).
-For other questions or additional help using qBraid, see [Lab User Guide](https://docs.qbraid.com/en/latest/), or reach out on [Discord](https://discord.gg/gwBebaBZZX).
+For other questions or additional help using qBraid, see [Lab User Guide](https://docs.qbraid.com/en/latest/), or reach out on the qBraid Slack channel.
 
 # Submission Instructions
 To submit your solution, *make sure your fork of this repo is public* and upload a PDF or slideshow explaining your project solution (include a brief intro to the problem, your approach, an outline of your implementation, and your results). All in-person participants will have the opportunity to give a 5-10 minute presentation on their challenge solution in the project presentations (10:30-12:30) on Sunday February 4. 
