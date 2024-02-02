@@ -65,19 +65,19 @@ The overall goal of the challenge is to implement a noise-aware scheme which imp
 
 
 ## Working on qBraid
-[<img src="https://qbraid-static.s3.amazonaws.com/logos/Launch_on_qBraid_white.png" width="150">](https://account.qbraid.com?gitHubUrl=GITHUB_URL)
-While simulations and emulations of your program can be done locally on your computer, operation of QuEra's systems for this event will mandatorily go via qBraid (where you can also do the emulations, if you want). So here are some guidelines:
+[<img src="https://qbraid-static.s3.amazonaws.com/logos/Launch_on_qBraid_white.png" width="150">](https://account.qbraid.com?gitHubUrl=https://github.com/iQuHACK/2024_AWS.git)
+
+To access the devices such as the OQC Lucy device for the challenge, we will be providing access and credits via qBraid. So, here are some guidelines:
 1. To launch these materials on qBraid, first fork this repository and click the above `Launch on qBraid` button. It will take you to your qBraid Lab with the repository cloned.
 2. Once cloned, open terminal (first icon in the **Other** column in Launcher) and `cd` into this repo. Set the repo's remote origin using the git clone url you copied in Step 1, and then create a new branch for your team:
 ```bash
-cd  iQuHACK/2024_AWS
+cd  2024_AWS
 git remote set-url origin https://github.com/iQuHACK/2024_AWS
 git branch <team_name>
 git checkout <team_name>
 ```
-3. Use the environment manager (**ENVS** tab in the right sidebar) to [install environment](https://qbraid-qbraid.readthedocs-hosted.com/en/latest/lab/environments.html#install-environment) "Amazon Braket". The installation should take ~2 min.
-4. Once the installation is complete, click **Activate** to [add a new ipykernel](https://qbraid-qbraid.readthedocs-hosted.com/en/latest/lab/kernels.html#add-remove-kernels) for "Amazon Braket".
-5. From the **FILES** tab in the left sidebar, double-click on the `REPO_FOLDER_NAME` directory.
+3. Use the default environment which has the latest version of amazon_braket_sdk. 
+4. From the **FILES** tab in the left sidebar, double-click on the `2024_AWS` directory, if you are not there already.
 6. You are now ready to begin hacking! Work with your team to complete either of the challenges listed above.
 
 For other questions or additional help using qBraid, see [Lab User Guide](https://qbraid-qbraid.readthedocs-hosted.com/en/latest/lab/overview.html), or reach out on [Discord](https://discord.gg/gwBebaBZZX).
