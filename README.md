@@ -3,6 +3,80 @@ AWS iQuHACK 2024 In-Person Challenge
 
 For this year's Amazon Braket challenge, we invite you to implement a noise-aware compilation scheme using the Braket SDK which improves the performance of Braket devices. Basically, you're remapping input quantum circuits to make the best use of available qubits, based on which are noisiest. 
 
+## WARNING: IonQ Harmony is currently experiencing an issue and not processing tasks quickly enough for hackers to run their tasks!
+
+As a fallback, we've developed a *facsimile* noise model of a "similar" device. Included below is a *sample script* to apply this noise model to a circuit. This runs on `braket_dm` (a local simulator) in a qBraid notebook (we show how to do this below).
+Previously, by running tasks on IonQ Harmony, you would have been able to infer such a noise model. Now, you can use ours (which drifts at each run) to try to develop your compiler approach.
+
+```python
+from braket.circuits.noise_model import (
+    GateCriteria,
+    NoiseModel,
+    ObservableCriteria,
+)
+from braket.circuits import Circuit, Observable, Gate
+from braket.circuits.noises import (
+    BitFlip,
+    Depolarizing,
+    TwoQubitDepolarizing,
+)
+from braket.devices import LocalSimulator
+import numpy as np
+import math
+
+def noise_model():
+    rng = np.random.default_rng()
+    m = NoiseModel()
+    
+    two_q_depo_mu = 1 - 0.9311
+    two_q_depo_sigma = 0.005
+    bf_mu = 1 - 0.99752
+    bf_sigma = 0.0015
+    one_q_depo_mu = 1 - 0.9981
+    one_q_depo_sigma = 0.00017
+    for qi in range(11):
+        z_bf_prob = bf_mu + bf_sigma * rng.standard_normal()
+        z_bf_prob = 0.0 if z_bf_prob < 0.0 else z_bf_prob
+        
+        bf_prob = bf_mu + bf_sigma * rng.standard_normal()
+        bf_prob = 0.0 if bf_prob < 0.0 else bf_prob
+        
+        one_q_depo_prob = one_q_depo_mu + one_q_depo_sigma * rng.standard_normal()
+        one_q_depo_prob = 0.0 if one_q_depo_prob < 0.0 else one_q_depo_prob
+        
+        m.add_noise(BitFlip(z_bf_prob), ObservableCriteria(observables=Observable.Z, qubits=qi))
+        #m.add_noise(BitFlip(bf_prob), ObservableCriteria(qubits=qi))
+        
+        m.add_noise(Depolarizing(one_q_depo_prob), GateCriteria(qubits=qi))
+        for qj in range(11):
+            if not qj == qi:
+                two_q_depo_prob = two_q_depo_mu + two_q_depo_sigma * rng.standard_normal()
+                two_q_depo_prob = 0.0 if two_q_depo_prob < 0.0 else two_q_depo_prob
+                
+                m.add_noise(TwoQubitDepolarizing(two_q_depo_prob), GateCriteria(gates=[Gate.CNot, Gate.Swap, Gate.CPhaseShift], qubits=[qi, qj]))
+    return m
+
+# build my circuit here
+c = Circuit()
+# SOME GATES GET APPLIED
+
+# examine the noiseless circuit 
+print(c)
+
+# apply the noise model to the circuit 
+nm = noise_model()
+c = nm.apply(c)
+
+# examine the noisy circuit 
+print(c)
+
+# run the simulation!
+device = LocalSimulator('braket_dm')
+result = device.run(c, shots=1000).result()
+
+# now improve the mapping based on the results!
+```
+
 ## A (relatively) simple example
 
 So for an example, let's say I wanted to generate Bell state, which I define as follows: 
