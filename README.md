@@ -12,12 +12,12 @@ bell = Circuit().h(0).cnot(0, 1)
 ``` 
 ![Local Image](standard-Bell.png)
 
-I want to run this circuit on the OQC Lucy device and make sure I’m using the best qubits for the job. Therefore, I’ll query the two qubit gate fidelities (T2) like this: 
+I want to run this circuit on the IonQ Harmony device and make sure I’m using the best qubits for the job. Therefore, I’ll query the two qubit gate fidelities (T2) like this: 
 ```
 from braket.aws import AwsDevice
 
-lucy = AwsDevice("arn:aws:braket:eu-west-2::device/qpu/oqc/Lucy")
-l_fid = lucy.properties.provider.properties
+harmony = AwsDevice("arn:aws:braket:us-east-1::device/qpu/ionq/Harmony")
+l_fid = harmony.properties.provider.properties
 l_t2 = l_fid['two_qubit']
 print(l_t2)
 ```
@@ -49,15 +49,12 @@ In this case, the two qubit gate fidelity is highest on the qubit pair ‘0-7’
 
 For a standard approach to noise-aware compiling in gate-based Noisy Intermediate Scale Quantum (NISQ) devices, you can check out this paper by Murali et al.: https://arxiv.org/abs/1901.11054. For a reference implementation in Qiskit, check out the `NoiseAdaptiveLayout` [method](https://docs.quantum.ibm.com/api/qiskit/qiskit.transpiler.passes.NoiseAdaptiveLayout).
 
-**Hint**: you can access individual 1 and 2-qubit fidelities for the OQC Lucy and IonQ Harmony devices as follows:
+**Hint**: you can access individual 1 and 2-qubit fidelities for the IonQ Harmony device as follows:
 ```
 from braket.aws import AwsDevice
 
 harmony = AwsDevice("arn:aws:braket:us-east-1::device/qpu/ionq/Harmony")
 h_fidelities = harmony.properties.provider.fidelity
-
-lucy = AwsDevice("arn:aws:braket:eu-west-2::device/qpu/oqc/Lucy")
-l_fidelities = lucy.properties.provider.properties
 ```
 You are also welcome to run a noisy simulation using the DM1 on-demand simulator (check out this [comprehensive example](https://github.com/amazon-braket/amazon-braket-examples/blob/main/examples/braket_features/Simulating_Noise_On_Amazon_Braket.ipynb) to see how) and apply noise-aware compiling to the simulated circuit. We would recommend referring to the Adding noise to a circuit section of the above example, so that you can properly assign noise rates to different simulated qubits, and therefore get an advantage using noise-aware compiling.
 
@@ -67,7 +64,7 @@ The overall goal of the challenge is to implement a noise-aware scheme which imp
 ## Working on qBraid
 [<img src="https://qbraid-static.s3.amazonaws.com/logos/Launch_on_qBraid_white.png" width="150">](https://account.qbraid.com?gitHubUrl=https://github.com/iQuHACK/2024_AWS.git)
 
-To access the devices such as the OQC Lucy device for the challenge, we will be providing access and credits via qBraid. So, here are some guidelines:
+To access the devices such as IonQ's Harmony for the challenge, we will be providing access and credits via qBraid. So, here are some guidelines:
 1. To launch these materials on qBraid, first fork this repository and click the above `Launch on qBraid` button. It will take you to your qBraid Lab with the repository cloned.
 2. Once cloned, open terminal (first icon in the **Other** column in Launcher) and `cd` into this repo. Set the repo's remote origin using the git clone url you copied in Step 1, and then create a new branch for your team:
 ```bash
@@ -76,7 +73,7 @@ git remote set-url origin <url>
 git branch <team_name>
 git checkout <team_name>
 ```
-3. Use the default environment which has the latest version of amazon_braket_sdk. 
+3. Use the default environment which has the latest version of `amazon_braket_sdk`. 
 4. From the **FILES** tab in the left sidebar, double-click on the `2024_AWS` directory, if you are not there already.
 6. You are now ready to begin hacking and [submitting jobs](https://docs.qbraid.com/projects/lab/en/latest/lab/quantum_jobs.html)! Work with your team to complete either of the challenges listed above.
 
