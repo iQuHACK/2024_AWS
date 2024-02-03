@@ -1,0 +1,35 @@
+from dataclasses import dataclass
+
+from sly import Lexer
+
+
+class Circuit:
+
+    def __init__(self, name, program):
+        self.name = name
+        self.program = program
+
+    def __str__(self):
+        string = ""
+        string += f"circuit: {self.name}\n"
+        string += "program:\n"
+        for expr in self.program:
+            string += "  " + str(expr) + "\n"
+        return string
+
+
+@dataclass
+class CNOT:
+    control: int
+    target: int
+
+    def __str__(self):
+        return f"CNOT control: {self.control} target: {self.target}"
+
+
+@dataclass
+class Hadamard:
+    qubit: int
+
+    def __str__(self):
+        return f"HADAMARD input: {self.qubit}"
