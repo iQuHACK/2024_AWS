@@ -5,10 +5,10 @@ We participated in AWS iQuHACK 2024 In-Person Challenge.
 This is our repo and we have short slides about our noise aware compilation of
 AWS Braket circuits.
 [Link to our slides](https://docs.google.com/presentation/d/1j7Nu_adU32vfPOUmudidZ-MPrti-X4SPa5-mQk71t44/edit?usp=sharing)
-Following the instructions below you will be able to test our compiler.
 
-## Instructions
-**First,"* fork the repo and open it in your terminal.
+
+## Instructions: Trying out our compiler
+**First,** fork the repo and open it in your terminal.
 
 **Second,** activate your virtual enviornment to run poetry.
 ```
