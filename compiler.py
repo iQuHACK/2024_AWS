@@ -1,4 +1,7 @@
 from pathlib import Path
+from typing import Optional
+from typing_extensions import Annotated
+import json
 
 import typer
 
@@ -8,34 +11,50 @@ from icuhack.qubit_placement import qubit_placement_optimization
 
 app = typer.Typer()
 
-candidate_pairs = {
-    (0, 3) : 10,
-    (0, 4) : 15,
-    (3, 5) : 10,
-    (1, 7) : 10,
-    (2, 6) : 10
-}
 
-def compiler_pipeline(source: str, outfile: str):
+def str_key_to_tuple(s):
+    return tuple(json.loads(s))
+
+
+def load_candidate_pair_json(candidate_pairs: str):
+    loaded_data = {
+        str_key_to_tuple(k): v
+        for k, v in json.loads(candidate_pairs).items()
+    }
+    return loaded_data
+
+
+def compiler_pipeline(source: str, outfile: str, candidate_pairs):
     # Parse source into circuitdsl
     circuit = parse(source)
     
     # Optimize qubit placement on circuitdsl
-    qubit_optimized = qubit_placement_optimization(circuit, candidate_pairs) 
+    if candidate_pairs:
+        circuit = qubit_placement_optimization(circuit, candidate_pairs) 
 
     # Compile to ZX calc program that runs circuit qasm with Bracket
-    zxprogram = zxcalc_program(qubit_optimized)
+    zxprogram = zxcalc_program(circuit)
 
     # Emit final compiled program
+    print(f"Compiled to {outfile}...")
     with open(outfile, 'w') as f:
         f.write(zxprogram)
 
 
 @app.command()
-def main(filename: Path):
+def main(
+    filename: Annotated[Path, typer.Argument()],
+    candidate_pairs_json: Annotated[Optional[Path], typer.Argument()] = None
+):
     outfile = filename.stem + "_compiled" + ".py"
     source = filename.read_text()
-    compiler_pipeline(source, outfile)
+    candidate_pairs = None
+    if candidate_pairs_json:
+        candidate_pairs = load_candidate_pair_json(
+            candidate_pairs_json.read_text()
+        )
+
+    compiler_pipeline(source, outfile, candidate_pairs)
 
 
 if __name__ == "__main__":
