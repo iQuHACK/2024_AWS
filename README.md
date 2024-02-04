@@ -29,6 +29,12 @@ python compiler.py demo1.py candidate_pair.json
 python demo1_compiled.py
 ```
 
+Of course, you can run `demo1.py` directly with pyton (withour our compiler) to run the code
+directly on an AWS Braket backend.
+```
+python demo1.py
+```
+
 In general,
 ```
 python compiler.py <circuit>.py <optional candidate pair>.json
