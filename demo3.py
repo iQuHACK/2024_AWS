@@ -1,12 +1,13 @@
 from braket.circuits import Circuit
 from braket.devices import LocalSimulator
 
-# zxdsl start
+# circuitdsl start
 def demo_circuit(circuit): 
+    circuit = circuit.x(0)
     circuit = circuit.x(0)
         
     return circuit
-# zxdsl end
+# circuitdsl end
 
 
 def main():

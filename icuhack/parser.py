@@ -72,12 +72,12 @@ def extract_zxdsl(program: str):
     program = list(filter(lambda s: len(s) > 0, program))
 
     while line := program.pop(0):
-        if line.strip() == "# zxdsl start":
+        if line.strip() == "# circuitdsl start":
             break
 
     while line := program.pop(0):
         stripped = line.strip()
-        if stripped == "# zxdsl end":
+        if stripped == "# circuitdsl end":
             break
         else:
             zxdsl.append(stripped)
