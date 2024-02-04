@@ -19,9 +19,9 @@ QUBITS = 11
 
 if __name__ == "__main__":
     device = LocalSimulator("braket_dm")
-    run_shots = 10000
+    run_shots = 100000
     nm = noise_model()
-    cnot_depth_range = np.arange(100, 151, 10)
+    cnot_depth_range = np.arange(100, 200, 10)
 
     deep_cnot_success_rate = []
     deep_cnot_remapped_success_rate = []
