@@ -1,5 +1,6 @@
 from braket.circuits import Circuit
-
+from braket.devices import LocalSimulator
+from braket.circuits.serialization import IRType
 
 # zxdsl start
 def error_correction_circuit(circuit): 
@@ -19,8 +20,13 @@ def error_correction_circuit(circuit):
 
 
 def main():
+    device = LocalSimulator()
     circuit = Circuit()
     error_correction = error_correction_circuit(circuit)
-    
-    print(device.run(bell, shots=100).result().measurement_counts)
+    qasm_ir = error_correction.to_ir(IRType.OPENQASM)
+    print(qasm_ir.source)
+    # print(device.run(error_correction, shots=100).result().measurement_counts)
 
+
+if __name__ == "__main__":
+    main()
