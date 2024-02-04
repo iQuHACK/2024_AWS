@@ -10,6 +10,8 @@ def error_correction_circuit(circuit):
     circuit = circuit.h(1)
     circuit = circuit.h(2)
     circuit = circuit.h(3)
+    circuit = circuit.z(1)
+    circuit = circuit.x(2)
     circuit = circuit.cnot(0, 4)
     circuit = circuit.cnot(2, 5)
     circuit = circuit.cnot(1, 4)

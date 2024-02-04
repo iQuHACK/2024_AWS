@@ -1,4 +1,4 @@
-from icuhack.circuit import Circuit, CNOT, Hadamard
+from icuhack.circuit import Circuit, CNOT, Hadamard, X, Z
 from icuhack.lexer import CircuitLexer, TopDefLexer
 
 
@@ -28,6 +28,21 @@ def parse_gate(tokens):
             if tok.type == "NUMBER":
                 args.append(int(tok.value))
         return Hadamard(args[0])
+    
+    elif gate.value == ".x":
+        args = []
+        for tok in tokens:
+            if tok.type == "NUMBER":
+                args.append(int(tok.value))
+        return X(args[0])
+    
+    elif gate.value == ".z":
+        args = []
+        for tok in tokens:
+            if tok.type == "NUMBER":
+                args.append(int(tok.value))
+        return Z(args[0]) 
+        
 
 
 def parse_gate_expr(lexer, expr: str):
