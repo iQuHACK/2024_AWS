@@ -86,7 +86,15 @@ def zxcalc_reducer() -> List[str]:
     func_def = "def reduce_zx(circuit):"
     func_body = [
        "graph = circuit.to_graph()",
+       "c1 = zx.extract_circuit(graph).to_basic_gates()" ,
+       "c1 = c1.stats()",
+       "c1_parsed = c1.split(\"\\n\")",
+       "print('T-count BEFORE reduction:  ' + c1_parsed[1][8])",
        "graph = zx.teleport_reduce(graph, quiet=False)",
+       "c2 = zx.extract_circuit(graph).to_basic_gates()" ,
+       "c2 = c2.stats()",
+       "c2_parsed = c2.split(\"\\n\")",
+       "print('T-count AFTER reduction:  ' + c2_parsed[1][8])",
        "c_opt = zx.extract_circuit(graph.copy())",
        "return c_opt"
     ]
