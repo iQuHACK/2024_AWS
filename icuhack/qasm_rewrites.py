@@ -24,5 +24,5 @@ def rewrite_cxs(qasm: List[str]):
 def qasm_rewrites(qasm: List[str], num_qubits: int):
     rw1 = add_inits(qasm, num_qubits)
     rw2 = add_measures(rw1, num_qubits)
-    rw3 = rewrite_cxs(rw1)
+    rw3 = rewrite_cxs(rw2)
     return rw3

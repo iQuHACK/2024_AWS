@@ -27,7 +27,10 @@ def load_candidate_pair_json(candidate_pairs: str):
 def compiler_pipeline(source: str, outfile: str, candidate_pairs):
     # Parse source into circuitdsl
     circuit = parse(source)
-    
+    print("\nCircuitDSL: \n")
+    print(circuit)
+    print("")
+
     # Optimize qubit placement on circuitdsl
     if candidate_pairs:
         circuit = qubit_placement_optimization(circuit, candidate_pairs) 
