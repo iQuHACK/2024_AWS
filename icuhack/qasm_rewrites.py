@@ -16,7 +16,7 @@ def rewrite_cxs(qasm: List[str]):
     for i in range(len(qasm)):
         expr = qasm[i].split(" ")
         if expr[0] == "cx":
-            qasm[i] = " ".join(["cnot"] + expr[1:]) 
+            qasm[i] = " ".join(["cnot"] + expr[1:])
 
     return qasm
 

@@ -29,28 +29,28 @@ def parse_gate(tokens):
             if tok.type == "NUMBER":
                 args.append(int(tok.value))
         return Hadamard(args[0])
-    
+
     elif gate.value == ".x":
         args = []
         for tok in tokens:
             if tok.type == "NUMBER":
                 args.append(int(tok.value))
         return X(args[0])
-    
+
     elif gate.value == ".z":
         args = []
         for tok in tokens:
             if tok.type == "NUMBER":
                 args.append(int(tok.value))
-        return Z(args[0]) 
-    
+        return Z(args[0])
+
     elif gate.value == ".t":
         args = []
         for tok in tokens:
             if tok.type == "NUMBER":
                 args.append(int(tok.value))
-        return T(args[0]) 
-        
+        return T(args[0])
+
 
 def parse_gate_expr(lexer, expr: str):
     tokens = list(lexer.tokenize(expr))

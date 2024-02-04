@@ -2,8 +2,9 @@ from braket.circuits import Circuit
 from braket.devices import LocalSimulator
 from braket.circuits.serialization import IRType
 
+
 # circuitdsl start
-def error_correction_circuit(circuit): 
+def error_correction_circuit(circuit):
     circuit = circuit.h(0)
     circuit = circuit.h(1)
     circuit = circuit.h(2)
@@ -14,8 +15,10 @@ def error_correction_circuit(circuit):
     circuit = circuit.cnot(3, 5)
     circuit = circuit.cnot(4, 6)
     circuit = circuit.cnot(5, 6)
-        
+
     return circuit
+
+
 # circuitdsl end
 
 

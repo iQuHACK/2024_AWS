@@ -14,9 +14,9 @@ def apply_rewrite(src, targ, program):
             ny = targ
         elif y == targ:
             ny = src
-        
+
         program[i] = nx, ny
-    
+
     return program
 
 
@@ -31,26 +31,26 @@ def optimize(program, candidate_pairs):
         candidates = []
         for c, d in candidate_pairs.keys():
             if x == c:
-                if (d not in dont_touch):
+                if d not in dont_touch:
                     candidates.append((candidate_pairs[(c, d)], (d, y)))
             if y == d:
-                if (c not in dont_touch):
+                if c not in dont_touch:
                     candidates.append((candidate_pairs[(c, d)], (x, c)))
         if not candidates:
             continue
-        
+
         candidates.sort()
         _, cand_pair = candidates[0]
         src, targ = cand_pair
         rewrites[src] = targ
         rewrites[targ] = src
         program = apply_rewrite(src, targ, program)
-        
+
         dont_touch.add(src)
         dont_touch.add(targ)
         dont_touch.add(program[fixpoint][0])
         dont_touch.add(program[fixpoint][1])
-    
+
     return program, rewrites
 
 
@@ -60,7 +60,7 @@ def qubit_placement_optimization(circuit, candidate_pairs):
     for gate in program:
         if isinstance(gate, CNOT):
             two_qubit_gates.append((gate.control, gate.target))
-    
+
     if not two_qubit_gates:
         return circuit
 
@@ -77,5 +77,5 @@ def qubit_placement_optimization(circuit, candidate_pairs):
             new_program.append(Z(gate.qubit))
         elif isinstance(gate, X):
             new_program.append(X(gate.qubit))
-    
+
     return Circuit(circuit.name, new_program)

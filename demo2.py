@@ -1,11 +1,14 @@
 from braket.circuits import Circuit
 from braket.devices import LocalSimulator
 
+
 # circuitdsl start
-def error_correction_circuit(circuit): 
+def error_correction_circuit(circuit):
     circuit = circuit.h(0)
     circuit = circuit.cnot(0, 1)
     return circuit
+
+
 # circuitdsl end
 
 

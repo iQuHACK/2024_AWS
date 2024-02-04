@@ -40,6 +40,7 @@ class Hadamard:
     def __str__(self):
         return f"HADAMARD input: {self.qubit}"
 
+
 @dataclass
 class Z:
     qubit: int
@@ -47,13 +48,15 @@ class Z:
     def __str__(self):
         return f"Z input: {self.qubit}"
 
+
 @dataclass
 class X:
     qubit: int
 
     def __str__(self):
         return f"X input: {self.qubit}"
-    
+
+
 @dataclass
 class T:
     qubit: int

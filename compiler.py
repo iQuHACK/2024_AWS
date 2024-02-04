@@ -18,8 +18,7 @@ def str_key_to_tuple(s):
 
 def load_candidate_pair_json(candidate_pairs: str):
     loaded_data = {
-        str_key_to_tuple(k): v
-        for k, v in json.loads(candidate_pairs).items()
+        str_key_to_tuple(k): v for k, v in json.loads(candidate_pairs).items()
     }
     return loaded_data
 
@@ -30,29 +29,27 @@ def compiler_pipeline(source: str, outfile: str, candidate_pairs):
 
     # Optimize qubit placement on circuitdsl
     if candidate_pairs:
-        circuit = qubit_placement_optimization(circuit, candidate_pairs) 
+        circuit = qubit_placement_optimization(circuit, candidate_pairs)
 
     # Compile to ZX calc program that runs circuit qasm with Bracket
     zxprogram = zxcalc_program(circuit)
 
     # Emit final compiled program
     print(f"Compiled to {outfile}...")
-    with open(outfile, 'w') as f:
+    with open(outfile, "w") as f:
         f.write(zxprogram)
 
 
 @app.command()
 def main(
     filename: Annotated[Path, typer.Argument()],
-    candidate_pairs_json: Annotated[Optional[Path], typer.Argument()] = None
+    candidate_pairs_json: Annotated[Optional[Path], typer.Argument()] = None,
 ):
     outfile = filename.stem + "_compiled" + ".py"
     source = filename.read_text()
     candidate_pairs = None
     if candidate_pairs_json:
-        candidate_pairs = load_candidate_pair_json(
-            candidate_pairs_json.read_text()
-        )
+        candidate_pairs = load_candidate_pair_json(candidate_pairs_json.read_text())
 
     compiler_pipeline(source, outfile, candidate_pairs)
 
