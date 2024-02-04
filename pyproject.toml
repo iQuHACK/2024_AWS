@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "icuhack"
+version = "0.1.0"
+description = "AWS challenge submission package"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+amazon-braket-sdk = "^1.68.2"
+sly = "^0.5"
+pyzx = "^0.7.3"
+matplotlib = "^3.8.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
