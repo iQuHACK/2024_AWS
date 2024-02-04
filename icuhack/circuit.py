@@ -17,6 +17,12 @@ class Circuit:
             string += "  " + str(expr) + "\n"
         return string
 
+    def get_name(self):
+        return self.name
+
+    def get_program(self):
+        return self.program
+
 
 @dataclass
 class CNOT:

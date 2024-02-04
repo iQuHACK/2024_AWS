@@ -8,6 +8,7 @@ def parse_top_def(lexer, topdef: str):
     for tok in tokens:
         if tok.type == "ID":
             name = tok.value
+        if tok.type == "LPAREN":
             break
     return name
 
