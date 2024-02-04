@@ -1,6 +1,6 @@
 from typing import List
 
-from icuhack.circuit import Circuit, CNOT, Hadamard, X, Z
+from icuhack.circuit import Circuit, CNOT, Hadamard, X, Z, T
 
 
 def get_topdef_again(name: str):
@@ -16,6 +16,8 @@ def get_zxcalc_gate(gate_op) -> str:
         return "\"X\""
     elif isinstance(gate_op, Z):
         return "\"Z\""
+    elif isinstance(gate_op, T):
+        return "\"T\""
 
 
 def gate_op_to_zxcalc(gate_op) -> List[str]:
@@ -31,6 +33,11 @@ def gate_op_to_zxcalc(gate_op) -> List[str]:
         ]
         return [add_gate(args)]
     elif isinstance(gate_op, Z):
+        args = [
+            get_zxcalc_gate(gate_op), str(gate_op.qubit)
+        ]
+        return [add_gate(args)]
+    elif isinstance(gate_op, T):
         args = [
             get_zxcalc_gate(gate_op), str(gate_op.qubit)
         ]
@@ -55,6 +62,8 @@ def get_qubits(program) -> int:
             qubits.add(gate_op.qubit)
         elif isinstance(gate_op, Z):
             qubits.add(gate_op.qubit)
+        elif isinstance(gate_op, T):
+            qubits.add(gate_op.qubit)    
     return qubits
 
 
@@ -86,6 +95,10 @@ def zxcalc_reducer() -> List[str]:
     func_def = "def reduce_zx(circuit):"
     func_body = [
        "graph = circuit.to_graph()",
+       "test_graph = graph.copy()",
+       "test_graph = zx.teleport_reduce(test_graph, quiet=False)",
+       "if circuit.verify_equality(zx.Circuit.from_graph(graph))==True:",
+       "     print('verified!')", 
        "c1 = zx.extract_circuit(graph).to_basic_gates()" ,
        "c1 = c1.stats()",
        "c1_parsed = c1.split(\"\\n\")",

@@ -14,7 +14,7 @@ class CircuitLexer(Lexer):
     ASSIGN = r"="
     LPAREN = r"\("
     RPAREN = r"\)"
-    GATE = r".cnot|.h|.x|.z"
+    GATE = r".cnot|.h|.x|.z|.t"
     COMMA = ","
 
 

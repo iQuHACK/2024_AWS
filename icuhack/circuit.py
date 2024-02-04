@@ -53,3 +53,10 @@ class X:
 
     def __str__(self):
         return f"X input: {self.qubit}"
+    
+@dataclass
+class T:
+    qubit: int
+
+    def __str__(self):
+        return f"T input: {self.qubit}"
